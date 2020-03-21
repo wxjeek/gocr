@@ -110,7 +110,7 @@ func DrawRowSegment(img gocv.Mat, start, end []int) {
 	width := img.Cols()
 
 	for i := range start {
-		gocv.Line(img, image.Point{0, start[i]}, image.Point{width, start[i]}, color.RGBA{0, 0, 0, 255}, 1)
-		gocv.Line(img, image.Point{0, end[i]}, image.Point{width, end[i]}, color.RGBA{0, 0, 0, 255}, 2)
+		gocv.Line(&img, image.Point{0, start[i]}, image.Point{width, start[i]}, color.RGBA{0, 0, 0, 255}, 1)
+		gocv.Line(&img, image.Point{0, end[i]}, image.Point{width, end[i]}, color.RGBA{0, 0, 0, 255}, 2)
 	}
 }

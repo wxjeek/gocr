@@ -46,7 +46,7 @@ func getThresholdValue(img gocv.Mat) float32 {
 func AutoThreshold(img gocv.Mat) gocv.Mat {
 	imgOut := gocv.NewMatWithSize(img.Rows(), img.Cols(), gocv.MatTypeCV8U)
 
-	gocv.Threshold(img, imgOut, getThresholdValue(img), 255, gocv.ThresholdBinary)
+	gocv.Threshold(img, &imgOut, getThresholdValue(img), 255, gocv.ThresholdBinary)
 
 	return imgOut
 }

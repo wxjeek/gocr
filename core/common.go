@@ -8,6 +8,10 @@ import (
 	"gocv.io/x/gocv"
 )
 
+const templateDir = "templates/"
+const outputDir = "outputs/"
+const mfSize = 3
+
 // Show - show image dialog
 func Show(img gocv.Mat) {
 	window := gocv.NewWindow("Display")
@@ -64,7 +68,7 @@ func CropImgArr(imgArr [][][]uint8, bound image.Rectangle) [][][]uint8 {
 }
 
 // GetImgMat - Convert cvMat to 3-dimension array
-func GetImgMat(arr [][][]uint8) gocv.Mat {
+func GetImgMat(arr [][][]uint8) (gocv.Mat, error) {
 	flag := [...]gocv.MatType{gocv.MatTypeCV8UC1, gocv.MatTypeCV8UC2, gocv.MatTypeCV8UC3, gocv.MatTypeCV8UC4}
 	height := len(arr)
 	width := len(arr[0])

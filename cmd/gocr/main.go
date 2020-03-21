@@ -62,7 +62,8 @@ func main() {
 				fmt.Println("Applying median filter...")
 
 				imgArr := core.MedianFilter(core.GetImgArray(img), (mfSize-1)/2)
-				img = core.GetImgMat(imgArr)
+				img,err:= core.GetImgMat(imgArr)
+				check(err)
 
 				gocv.IMWrite(outputDir+"02_median_filter.jpg", img)
 
@@ -93,10 +94,10 @@ func main() {
 					row := core.CropImgArr(imgArr, image.Rectangle{image.Point{0, start[i]}, image.Point{len(imgArr[0]), end[i]}})
 					rectTable := core.GetSegmentChar(row)
 
-					rowImg := core.GetImgMat(row)
-
+					rowImg,err := core.GetImgMat(row)
+					check(err)
 					for _, rect := range rectTable {
-						gocv.Rectangle(rowImg, rect, color.RGBA{255, 0, 0, 0}, 1)
+						gocv.Rectangle(&rowImg, rect, color.RGBA{255, 0, 0, 0}, 1)
 					}
 
 					gocv.IMWrite(outputDir+"04_character_segment_"+strconv.Itoa(i)+".jpg", rowImg)
