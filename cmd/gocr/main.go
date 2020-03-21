@@ -6,12 +6,11 @@ import (
 	"bufio"
 	"fmt"
 	"github.com/wxjeek/gocr/core"
+	"gocv.io/x/gocv"
 	"image"
 	"image/color"
 	"os"
 	"strconv"
-
-	"gocv.io/x/gocv"
 )
 
 const templateDir = "templates/"
@@ -49,8 +48,11 @@ func main() {
 				// Read image
 				fmt.Printf("Opening %v...\n", os.Args[2])
 
-				img := gocv.IMRead(os.Args[2], gocv.IMReadGrayScale)
-
+				img := gocv.IMRead("./test.png", gocv.IMReadAnyColor)
+				if img.Empty() {
+					fmt.Println("can't read file")
+					os.Exit(1)
+				}
 				// Apply auto threshold
 				fmt.Println("Applying auto threshold...")
 
@@ -62,7 +64,7 @@ func main() {
 				fmt.Println("Applying median filter...")
 
 				imgArr := core.MedianFilter(core.GetImgArray(img), (mfSize-1)/2)
-				img,err:= core.GetImgMat(imgArr)
+				img, err := core.GetImgMat(imgArr)
 				check(err)
 
 				gocv.IMWrite(outputDir+"02_median_filter.jpg", img)
@@ -89,12 +91,10 @@ func main() {
 				// Character segmentation
 				fmt.Println("Characters segmenting and template mathching...")
 				fmt.Println(">>")
-
 				for i := range start {
 					row := core.CropImgArr(imgArr, image.Rectangle{image.Point{0, start[i]}, image.Point{len(imgArr[0]), end[i]}})
 					rectTable := core.GetSegmentChar(row)
-
-					rowImg,err := core.GetImgMat(row)
+					rowImg, err := core.GetImgMat(row)
 					check(err)
 					for _, rect := range rectTable {
 						gocv.Rectangle(&rowImg, rect, color.RGBA{255, 0, 0, 0}, 1)
@@ -106,11 +106,9 @@ func main() {
 					for b := range rectTable {
 						cropImg := core.CropImgArr(row, rectTable[b])
 						ratioBin := core.GetRatioBin(len(cropImg), len(cropImg[b]))
-
 						if ratioBin >= 0 && ratioBin < len(templates) {
 							// Valid object
 							res := core.MatchTemplate(cropImg, templates[ratioBin])
-
 							fmt.Printf("%v", res[0])
 							_, err = fmt.Fprintf(writer, "%v", res[0])
 							check(err)
@@ -126,7 +124,6 @@ func main() {
 					_, err = fmt.Fprintf(writer, "\n")
 					check(err)
 				}
-
 				fmt.Println("<<")
 
 				// Flush buffer and close file

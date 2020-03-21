@@ -11,7 +11,7 @@ import (
 )
 
 const binSize = 1
-const binAmount = 7
+const binAmount = 8
 
 // Template structure
 type Template struct {
