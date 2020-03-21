@@ -1,6 +1,6 @@
 // gOCR - Template Matching Module
 
-package main
+package core
 
 import (
 	"math"

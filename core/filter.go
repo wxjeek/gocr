@@ -1,6 +1,6 @@
 // gOCR - Median Filter Module
 
-package main
+package core
 
 import (
 	"sort"

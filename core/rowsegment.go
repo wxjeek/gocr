@@ -1,6 +1,6 @@
 // gOCR - Row Segmentation Module
 
-package main
+package core
 
 import (
 	"image"

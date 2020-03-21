@@ -1,6 +1,6 @@
 // gOCR - Template Generation Module
 
-package main
+package core
 
 import (
 	"bufio"
@@ -69,7 +69,7 @@ func writeGlyp(str string, count int, font *truetype.Font) {
 	glypBound := getGlypBound(background)
 
 	// Save
-	outFile, err := os.Create(templateDir + filename)
+	outFile, err := os.Create(gocr.templateDir + filename)
 	if err != nil {
 		panic(err)
 	}

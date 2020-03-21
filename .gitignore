@@ -2,3 +2,5 @@
 *.png
 *.ttf
 gocr
+.idea
+go.sum

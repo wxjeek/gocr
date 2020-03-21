@@ -1,6 +1,6 @@
 // gOCR - Automatic Thresholding Module
 
-package main
+package core
 
 import (
 	"gocv.io/x/gocv"

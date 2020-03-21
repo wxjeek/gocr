@@ -1,6 +1,6 @@
 // gOCR - Blob Coloring Module
 
-package main
+package core
 
 import (
 	"image"

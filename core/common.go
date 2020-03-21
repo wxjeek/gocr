@@ -1,6 +1,6 @@
 // gOCR - Common Module
 
-package main
+package core
 
 import (
 	"image"

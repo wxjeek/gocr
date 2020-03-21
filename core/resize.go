@@ -1,6 +1,6 @@
 // gOCR - Resizer Module
 
-package main
+package core
 
 // Greatest common divisor
 func gcd(a, b int) int {
